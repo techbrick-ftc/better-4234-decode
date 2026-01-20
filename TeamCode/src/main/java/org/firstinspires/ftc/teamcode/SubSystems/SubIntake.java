@@ -8,10 +8,10 @@ import com.qualcomm.robotcore.hardware.CRServo;
 public class SubIntake {
 
     // Define the min and max values of the lift servos to allow for easier position setting within the predefined range
-    private final double LEFT_LIFT_SERVO_MAX  = 0.7;
-    private final double LEFT_LIFT_SERVO_MIN  = 0.5;
+    private final double LEFT_LIFT_SERVO_MAX  = 0.6;
+    private final double LEFT_LIFT_SERVO_MIN  = 0.0;
     private final double RIGHT_LIFT_SERVO_MAX = 1.0;
-    private final double RIGHT_LIFT_SERVO_MIN = 0.5;
+    private final double RIGHT_LIFT_SERVO_MIN = 0.4;
 
     private final double LEFT_LIFT_SERVO_RANGE  = Math.abs(LEFT_LIFT_SERVO_MAX  - LEFT_LIFT_SERVO_MIN );
     private final double RIGHT_LIFT_SERVO_RANGE = Math.abs(RIGHT_LIFT_SERVO_MAX - RIGHT_LIFT_SERVO_MIN);
@@ -34,7 +34,7 @@ public class SubIntake {
 
         leftLiftServo =  hardwareMap.get(Servo.class, "leftLift" );
         rightLiftServo = hardwareMap.get(Servo.class, "rightLift");
-        // rightLiftServo.setDirection(Servo.Direction.REVERSE); TODO: Uncomment if needed
+        leftLiftServo.setDirection(Servo.Direction.REVERSE);
     }
 
     public void setIntakePower(double intakeRowPower) {
