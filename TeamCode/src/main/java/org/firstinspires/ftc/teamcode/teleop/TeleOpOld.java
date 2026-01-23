@@ -21,17 +21,6 @@ public class TeleOpOld extends LinearOpMode {
     double intakeAngle = 0.3;
     double shootingHomeAngle = 0.7;
 
-
-
-
-
-
-
-
-
-
-
-
     //Chassis
     double State = 1;
     // 0 - Disabled

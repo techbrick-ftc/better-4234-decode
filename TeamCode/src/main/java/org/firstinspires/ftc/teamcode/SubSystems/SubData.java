@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.SubSystems;
 public class SubData {
 
     public static boolean isRedTeam;
-    public static double storedAngle;
+    public static double storedAngle = Math.PI;
 
     public enum OffsetIDs {
         GENERIC,

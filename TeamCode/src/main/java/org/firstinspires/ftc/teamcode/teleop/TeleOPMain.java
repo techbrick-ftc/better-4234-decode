@@ -62,7 +62,7 @@ public class TeleOPMain extends LinearOpMode {
     double xP;
     double yP;
     double rP;
-    double kP = 0.7;
+    double kP = 0.5;
 
     boolean wordyTelemetry = false;
 
@@ -85,6 +85,9 @@ public class TeleOPMain extends LinearOpMode {
         subData              = new SubData();
 
         voltageSensor = hardwareMap.get(VoltageSensor.class, "Control Hub");
+
+        // Re-initialize the imu to account for heading changes during auto
+        drive.setOffset(Math.PI - SubData.getAngle());
 
         waitForStart();
         if (isStopRequested()) return;
@@ -192,7 +195,6 @@ public class TeleOPMain extends LinearOpMode {
             intake.setLiftPositionWithinRange(gamepad1.left_bumper ? 0 : 1, gamepad1.right_bumper ? 0 : 1);
 
             // Telemetry below this line -----------------------------------------------------------
-            telemetry.addAction(subData::toggleTeam); // TODO: See if this works
             if (wordyTelemetry) {
 
                 // Not as much practical use, but could be useful for demonstrations or when message clarity is needed.
@@ -204,6 +206,7 @@ public class TeleOPMain extends LinearOpMode {
             } else {
 
                 // More technical telemetry data, helpful for debugging.
+                telemetry.addData("RPM Measured", flywheel.flyWheel.getVelocity());
                 telemetry.addData("Team", subData.isRedTeam() ? "RED. [Options] to change." : "BLUE. [Options] to change");
                 telemetry.addLine();
                 telemetry.addData("Slow Mode", slowMode ? "ON. [B] to change." : "OFF. [B] to change.");
@@ -220,4 +223,3 @@ public class TeleOPMain extends LinearOpMode {
 }
 
 // Developed by Team 4234 for the 2025-2026 FTC season DECODE
-// Debugged with help from ChatGPT
