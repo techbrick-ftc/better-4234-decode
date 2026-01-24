@@ -34,8 +34,8 @@ public class TeleOPMain extends LinearOpMode {
     final double FLYWHEEL_IDLE_RPM = 0; // Should be left at 0 until end-of-match disable is finished.
 
     // May need to move to SubAprilTag, also need to check if correct
-    final int APRILTAG_RED_ID  = 20;
-    final int APRILTAG_BLUE_ID = 24;
+    final int APRILTAG_RED_ID  = 24;
+    final int APRILTAG_BLUE_ID = 20;
     final int APRILTAG_GPP_ID  = 21; // Green,  Purple, Purple
     final int APRILTAG_PGP_ID  = 22; // Purple, Green,  Green
     final int APRILTAG_PPG_ID  = 23; // Purple, Purple, Green
@@ -78,7 +78,7 @@ public class TeleOPMain extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         // Define subsystems
-        drive                = new SubDrive(hardwareMap, Math.PI); // TODO: Add position
+        drive                = new SubDrive(hardwareMap, SubData.getAngle()); // TODO: Add position
         flywheel             = new SubFlywheel(hardwareMap);
         intake               = new SubIntake(hardwareMap);
         subAprilTagDetection = new SubAprilTagDetection(hardwareMap, telemetry);
@@ -87,7 +87,7 @@ public class TeleOPMain extends LinearOpMode {
         voltageSensor = hardwareMap.get(VoltageSensor.class, "Control Hub");
 
         // Re-initialize the imu to account for heading changes during auto
-        drive.setOffset(Math.PI - SubData.getAngle());
+        //drive.setOffset(Math.PI - SubData.getAngle());
 
         waitForStart();
         if (isStopRequested()) return;

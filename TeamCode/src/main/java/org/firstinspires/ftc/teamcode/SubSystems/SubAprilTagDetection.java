@@ -18,7 +18,7 @@ public class SubAprilTagDetection {
     public Telemetry telemetry;
     private double imageWidth;
 
-    final double kP = 0.2; // Applied to a value in radians, so higher than normal.
+    final double kP = 0.4; // Applied to a value in radians, so higher than normal.
 
     final double MAX_TURN_SPEED = 0.7;
 

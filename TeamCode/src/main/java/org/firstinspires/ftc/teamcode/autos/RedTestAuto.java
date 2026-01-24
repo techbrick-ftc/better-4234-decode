@@ -10,8 +10,10 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+
 import org.firstinspires.ftc.teamcode.SubSystems.SubFlywheel;
 import org.firstinspires.ftc.teamcode.SubSystems.SubData;
+import org.firstinspires.ftc.teamcode.SubSystems.SubIntake;
 
 @Autonomous(name = "|| Red Close Auto Testing")
 public class RedTestAuto extends LinearOpMode {
@@ -22,6 +24,7 @@ public class RedTestAuto extends LinearOpMode {
     DcMotorEx backLeft;
 
     SubFlywheel flywheel = null;
+    SubIntake intake = null;
 
     BNO055IMU imu;
     BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -73,7 +76,7 @@ public class RedTestAuto extends LinearOpMode {
 
         }
 
-        sleep(100); // Allow drive motors to come to rest
+        sleep(500); // Allow drive motors to come to rest
 
     }
 
@@ -96,12 +99,19 @@ public class RedTestAuto extends LinearOpMode {
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        frontRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+
         frontRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         frontLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         flywheel = new SubFlywheel(hardwareMap);
+        intake = new SubIntake(hardwareMap);
+
 
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         double offset = SubData.getStartingAngleOffset(SubData.OffsetIDs.RED_CLOSE);
@@ -110,16 +120,47 @@ public class RedTestAuto extends LinearOpMode {
 
         waitForStart();
 
-            flywheel.setFlyWheelRPM(1000);
-            driveToRelative(400, 400, 400, 400, 0.4);
+            flywheel.setFlyWheelRPM(0);
+            driveToRelative(2000, 2000, 2000, 2000, 0.4);
             waitForActionCompletion();
 
-            driveToRelative(200, 200, 0, 0, 0.4);
+            driveToRelative(-500, 500, -500, 500, 0.4);
             waitForActionCompletion();
 
-            // Record final robot heading to preserve it for teleop.
+            flywheel.setFlyWheelRPM(6000);
+            sleep(3000);
+
+            intake.setTransferPower(1);
+
+            intake.setLiftPositionWithinRange(1, 0);
+            sleep(1500);
+
+            intake.setLiftPositionWithinRange(0,1);
+            sleep(1500);
+
+            intake.setLiftPositionWithinRange(1, 1);
+            sleep(1500);
+
+        driveToRelative(-200, 200, -200, 200, 0.3);
+        waitForActionCompletion();
+        driveToRelative(200, -200, 200, -200, 0.3);
+        waitForActionCompletion();
+        driveToRelative(-200, 200, -200, 200, 0.3);
+        waitForActionCompletion();
+        driveToRelative(200, -200, 200, -200, 0.3);
+        waitForActionCompletion();
+
+
+
+
+        // Record final robot heading to preserve it for teleop.
             SubData.setAngle(imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS).firstAngle - offset);
 
+            telemetry.addData("IMU", imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS).firstAngle);
+            telemetry.update();
+
+            
+            sleep(5000);
 
     }
 }
