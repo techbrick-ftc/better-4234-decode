@@ -15,8 +15,8 @@ import org.firstinspires.ftc.teamcode.SubSystems.SubFlywheel;
 import org.firstinspires.ftc.teamcode.SubSystems.SubData;
 import org.firstinspires.ftc.teamcode.SubSystems.SubIntake;
 
-@Autonomous(name = "|| Red Close Auto Testing")
-public class RedTestAuto extends LinearOpMode {
+@Autonomous(name = "Red Far Auto")
+public class RedFarAuto extends LinearOpMode {
 
     DcMotorEx frontRight;
     DcMotorEx frontLeft;
@@ -120,26 +120,26 @@ public class RedTestAuto extends LinearOpMode {
 
         waitForStart();
 
-            flywheel.setFlyWheelRPM(0);
-            driveToRelative(3000, 3000, 3000, 3000, 0.4);
-            waitForActionCompletion();
+        flywheel.setFlyWheelRPM(0);
+        driveToRelative(1000, 1000, 1000, 1000, 0.4);
+        waitForActionCompletion();
 
-            driveToRelative(-500, 500, -500, 500, 0.4);
-            waitForActionCompletion();
+        driveToRelative(1500, -1500, 1500, -1500, 0.4);
+        waitForActionCompletion();
 
-            flywheel.setFlyWheelRPM(6000);
-            sleep(3000);
+        flywheel.setFlyWheelRPM(6000);
+        sleep(3000);
 
-            intake.setTransferPower(1);
+        intake.setLiftPositionWithinRange(1, 0);
+        sleep(1500);
 
-            intake.setLiftPositionWithinRange(1, 0);
-            sleep(1500);
+        intake.setLiftPositionWithinRange(0,1);
+        sleep(1500);
 
-            intake.setLiftPositionWithinRange(0,1);
-            sleep(1500);
+        intake.setIntakePower(1);
 
-            intake.setLiftPositionWithinRange(1, 1);
-            sleep(1500);
+        intake.setLiftPositionWithinRange(1, 1);
+        sleep(1500);
 
         driveToRelative(-200, 200, -200, 200, 0.3);
         waitForActionCompletion();
@@ -149,18 +149,17 @@ public class RedTestAuto extends LinearOpMode {
         waitForActionCompletion();
         driveToRelative(200, -200, 200, -200, 0.3);
         waitForActionCompletion();
-
 
 
 
         // Record final robot heading to preserve it for teleop.
-            SubData.setAngle(imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS).firstAngle - offset);
+        SubData.setAngle(imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS).firstAngle - offset);
 
-            telemetry.addData("IMU", imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS).firstAngle);
-            telemetry.update();
+        telemetry.addData("IMU", imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS).firstAngle);
+        telemetry.update();
 
-            
-            sleep(5000);
+
+        sleep(5000);
 
     }
 }
