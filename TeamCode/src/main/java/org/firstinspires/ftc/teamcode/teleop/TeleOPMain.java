@@ -64,8 +64,6 @@ public class TeleOPMain extends LinearOpMode {
     double rP;
     double kP = 0.5;
 
-    boolean wordyTelemetry = false;
-
     // Declare subsystems.
     SubDrive             drive                = null;
     SubFlywheel          flywheel             = null;
@@ -152,7 +150,7 @@ public class TeleOPMain extends LinearOpMode {
                     drive.To(xP, yP, headingAngle * kP, drivePow, fieldCentricActive);
                 } else if (headingLockState == 2) {
 
-                    // Apriltags. TODO: Debug
+                    // Apriltags
                     aprilTagRotation = subAprilTagDetection.getRotationCorrection(colorTagID);
                     if(!Double.isNaN(aprilTagRotation)){
                         drive.To(xP, yP, aprilTagRotation, drivePow, fieldCentricActive);
@@ -195,28 +193,16 @@ public class TeleOPMain extends LinearOpMode {
             intake.setLiftPositionWithinRange(gamepad1.left_bumper ? 0 : 1, gamepad1.right_bumper ? 0 : 1);
 
             // Telemetry below this line -----------------------------------------------------------
-            if (wordyTelemetry) {
+            telemetry.addData("RPM Measured", flywheel.flyWheel.getVelocity());
+            telemetry.addData("Team", subData.isRedTeam() ? "RED. [Options] to change." : "BLUE. [Options] to change");
+            telemetry.addLine();
+            telemetry.addData("Slow Mode", slowMode ? "ON. [B] to change." : "OFF. [B] to change.");
+            telemetry.addLine();
+            telemetry.addData("IMU (radians)", drive.getRawImu());
+            telemetry.addData("Target Heading", headingTargetAngle);
+            telemetry.addLine();
+            telemetry.addData("Batt. Voltage", voltageSensor.getVoltage());
 
-                // Not as much practical use, but could be useful for demonstrations or when message clarity is needed.
-                telemetry.addLine(String.join(" ", "Robot is on the", subData.isRedTeam() ? "RED" : "BLUE", "alliance. Press [OPTIONS] to change."));
-                telemetry.addLine();
-                telemetry.addLine(String.join(" ", "Slow mode is", slowMode ? "ON." : "OFF.", "Press [B] to change"));
-                telemetry.addLine();
-                telemetry.addLine("Wordy telemetry is ON. Press [OPTIONS] on Gamepad 2 to change.");
-            } else {
-
-                // More technical telemetry data, helpful for debugging.
-                telemetry.addData("RPM Measured", flywheel.flyWheel.getVelocity());
-                telemetry.addData("Team", subData.isRedTeam() ? "RED. [Options] to change." : "BLUE. [Options] to change");
-                telemetry.addLine();
-                telemetry.addData("Slow Mode", slowMode ? "ON. [B] to change." : "OFF. [B] to change.");
-                telemetry.addLine();
-                telemetry.addData("IMU (radians)", drive.getRawImu());
-                telemetry.addData("Target Heading", headingTargetAngle);
-                telemetry.addLine();
-                telemetry.addData("Batt. Voltage", voltageSensor.getVoltage());
-                telemetry.addLine("Wordy telemetry OFF. [OPTIONS] on Gamepad 2 to change.");
-            }
             telemetry.update();
         }
     }
