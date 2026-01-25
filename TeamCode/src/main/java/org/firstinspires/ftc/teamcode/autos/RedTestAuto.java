@@ -121,16 +121,16 @@ public class RedTestAuto extends LinearOpMode {
         waitForStart();
 
             flywheel.setFlyWheelRPM(0);
-            driveToRelative(3000, 3100, 3000, 3100, 0.4);
+            driveToRelative(3500, 3700, 3500, 3600, 0.4);
             waitForActionCompletion();
 
-            driveToRelative(-550, 550, -550, 550, 0.4);
+            driveToRelative(-650, 650, -650, 650, 0.4);
             waitForActionCompletion();
 
             flywheel.setFlyWheelRPM(6000);
             sleep(3000);
 
-            intake.setTransferPower(1);
+            intake.setIntakePower(1);
 
             intake.setLiftPositionWithinRange(1, 0);
             sleep(1500);

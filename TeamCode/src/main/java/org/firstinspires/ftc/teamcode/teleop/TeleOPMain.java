@@ -123,7 +123,7 @@ public class TeleOPMain extends LinearOpMode {
                 drive.recalibrate();
             }
 
-            if (gamepad1.optionsWasPressed()) {
+            if (gamepad1.optionsWasPressed() || gamepad2.optionsWasPressed()) {
                 subData.toggleTeam();
 
                 if (subData.isRedTeam()) {

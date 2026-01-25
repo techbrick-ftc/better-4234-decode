@@ -14,8 +14,8 @@ import org.firstinspires.ftc.teamcode.SubSystems.SubFlywheel;
 import org.firstinspires.ftc.teamcode.SubSystems.SubData;
 import org.firstinspires.ftc.teamcode.SubSystems.SubIntake;
 
-@Autonomous(name = "Blue Near Hopper Auto")
-public class BlueFarAuto extends LinearOpMode {
+@Autonomous(name = "R|B DriveForward v2")
+public class DriveForward2 extends LinearOpMode {
 
     DcMotorEx frontRight;
     DcMotorEx frontLeft;
@@ -119,59 +119,8 @@ public class BlueFarAuto extends LinearOpMode {
 
         waitForStart();
 
-        flywheel.setFlyWheelRPM(0);
-        driveToRelative(200,-200,200,-200,0.4);
+        driveToRelative(300, 300, 300, 300, 0.4);
         waitForActionCompletion();
-
-        driveToRelative(1000, 1000, 1000, 1000, 0.4);
-        waitForActionCompletion();
-
-        driveToRelative(-1250, 1250, -1250, 1250, 0.4);
-        waitForActionCompletion();
-
-        flywheel.setFlyWheelRPM(6000);
-        sleep(3000);
-
-        intake.setLiftPositionWithinRange(1, 0);
-        sleep(1500);
-
-        intake.setLiftPositionWithinRange(0,1);
-        sleep(1500);
-
-        intake.setLiftPositionWithinRange(0, 0);
-        sleep(1500);
-
-        intake.setIntakePower(1);
-
-        intake.setLiftPositionWithinRange(1, 1);
-        sleep(1500);
-
-        intake.setLiftPositionWithinRange(0, 0);
-        sleep(1500);
-
-
-        intake.setLiftPositionWithinRange(1, 1);
-        sleep(1500);
-
-        driveToRelative(-200, 200, -200, 200, 0.3);
-        waitForActionCompletion();
-        driveToRelative(200, -200, 200, -200, 0.3);
-        waitForActionCompletion();
-        driveToRelative(-200, 200, -200, 200, 0.3);
-        waitForActionCompletion();
-        driveToRelative(200, -200, 200, -200, 0.3);
-        waitForActionCompletion();
-
-
-
-        // Record final robot heading to preserve it for teleop.
-        SubData.setAngle(imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS).firstAngle - offset);
-
-        telemetry.addData("IMU", imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS).firstAngle);
-        telemetry.update();
-
-
-        sleep(1000);
 
     }
 }

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.SubSystems;
 
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -26,7 +27,7 @@ public class SubIntake {
 
         // Called from TeleOPMain. Defines hardware.
         spaghettiWheelsIntakeMotor = hardwareMap.get(DcMotorEx.class, "intakeRow");
-        spaghettiWheelsIntakeMotor.setDirection(DcMotorEx.Direction.REVERSE);
+        spaghettiWheelsIntakeMotor.setDirection(DcMotorEx.Direction.FORWARD);
         spaghettiWheelsIntakeMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         transferWheels = hardwareMap.get(CRServo.class, "transfer");

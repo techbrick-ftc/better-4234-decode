@@ -121,10 +121,13 @@ public class RedFarAuto extends LinearOpMode {
         waitForStart();
 
         flywheel.setFlyWheelRPM(0);
+        driveToRelative(-200,200,-200,200,0.4);
+        waitForActionCompletion();
+
         driveToRelative(1000, 1000, 1000, 1000, 0.4);
         waitForActionCompletion();
 
-        driveToRelative(1500, -1500, 1500, -1500, 0.4);
+        driveToRelative(1000, -1000, 1000, -1000, 0.4);
         waitForActionCompletion();
 
         flywheel.setFlyWheelRPM(6000);
@@ -134,6 +137,9 @@ public class RedFarAuto extends LinearOpMode {
         sleep(1500);
 
         intake.setLiftPositionWithinRange(0,1);
+        sleep(1500);
+
+        intake.setLiftPositionWithinRange(0, 0);
         sleep(1500);
 
         intake.setIntakePower(1);
@@ -147,6 +153,7 @@ public class RedFarAuto extends LinearOpMode {
         waitForActionCompletion();
         driveToRelative(-200, 200, -200, 200, 0.3);
         waitForActionCompletion();
+
         driveToRelative(200, -200, 200, -200, 0.3);
         waitForActionCompletion();
 
@@ -159,7 +166,7 @@ public class RedFarAuto extends LinearOpMode {
         telemetry.update();
 
 
-        sleep(5000);
+        sleep(1000);
 
     }
 }

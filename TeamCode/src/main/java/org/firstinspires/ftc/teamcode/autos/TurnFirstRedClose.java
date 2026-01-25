@@ -125,7 +125,7 @@ public class TurnFirstRedClose extends LinearOpMode {
         driveToRelative(-200,200,-200,200,0.4);
         waitForActionCompletion();
 
-        driveToRelative(3000, 3000, 3000, 3000, 0.4);
+        driveToRelative(3500, 3500, 3500, 3500, 0.4);
         waitForActionCompletion();
 
         driveToRelative(-500, 500, -500, 500, 0.4);
