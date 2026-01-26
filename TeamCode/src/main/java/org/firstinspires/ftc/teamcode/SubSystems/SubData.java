@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.SubSystems;
 
-public class SubData {
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+public class SubData extends LinearOpMode {
 
     public static boolean isRedTeam;
     public static double storedAngle = Math.PI;
@@ -52,6 +54,10 @@ public class SubData {
         }
     }
 
+    // This code is not intended to be run. The following lines of code should make data stored in this file persistent.
+    @Override
+    public void runOpMode() throws InterruptedException {
 
+    }
 
 }
