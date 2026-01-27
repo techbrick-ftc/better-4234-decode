@@ -76,7 +76,7 @@ public class TeleOPMain extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         // Define subsystems
-        drive                = new SubDrive(hardwareMap, SubData.getAngle()); // TODO: Add position
+        drive                = new SubDrive(hardwareMap, SubData.getAngle());
         flywheel             = new SubFlywheel(hardwareMap);
         intake               = new SubIntake(hardwareMap);
         subAprilTagDetection = new SubAprilTagDetection(hardwareMap, telemetry);
