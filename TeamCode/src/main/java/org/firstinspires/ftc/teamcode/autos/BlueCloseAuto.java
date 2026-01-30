@@ -121,7 +121,7 @@ public class BlueCloseAuto extends LinearOpMode {
         waitForStart();
 
         flywheel.setFlyWheelRPM(0);
-        driveToRelative(3000, 3000, 3000, 3000, 0.4);
+        driveToRelative(3000, 3100, 3000, 3100, 0.4);
         waitForActionCompletion();
 
         driveToRelative(500, -500, 500, -500, 0.4);

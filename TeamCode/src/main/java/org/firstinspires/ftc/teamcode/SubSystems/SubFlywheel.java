@@ -8,7 +8,8 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 public class SubFlywheel {
 
-    public DcMotorEx flyWheel;
+    public DcMotorEx flyWheel1;
+    public DcMotorEx flyWheel2;
 
     final double FLYWHEEL_MAX_RPM = 6000;
     final double FLYWHEEL_MIN_RPM = 0;
@@ -26,12 +27,19 @@ public class SubFlywheel {
 
 
     public SubFlywheel(HardwareMap hardwareMap) {
-        flyWheel = hardwareMap.get(DcMotorEx.class, "flywheel1");
-        flyWheel.setDirection(DcMotorSimple.Direction.REVERSE);
-        flyWheel.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT); // Allows coasting
+        flyWheel1 = hardwareMap.get(DcMotorEx.class, "flywheel1");
+        flyWheel1.setDirection(DcMotorSimple.Direction.REVERSE);
+        flyWheel1.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT); // Allows coasting
         PIDFCoefficients flywheelPIDF = new PIDFCoefficients(FLYWHEEL_P, FLYWHEEL_I, FLYWHEEL_D, FLYWHEEL_F);
-        flyWheel.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, flywheelPIDF);
-        flyWheel.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER); // TODO: DcMotor or DcMotorEX?
+        flyWheel1.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, flywheelPIDF);
+        flyWheel1.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+
+        flyWheel2 = hardwareMap.get(DcMotorEx.class, "flywheel2");
+        flyWheel2.setDirection(DcMotorSimple.Direction.FORWARD);
+        flyWheel2.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT); // Allows coasting
+        flyWheel2.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, flywheelPIDF);
+        flyWheel2.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+
     }
 
     public void setFlyWheelRPM(double targetFlywheelRPM) {
@@ -39,7 +47,8 @@ public class SubFlywheel {
         //        Math.max(FLYWHEEL_MIN_RPM,
         //        Math.min(FLYWHEEL_MAX_RPM, targetFlywheelRPM))
         //        * FLYWHEEL_TICKS_PER_REVOLUTION / 60.0 );
-        flyWheel.setPower(targetFlywheelRPM / 6000);
+        flyWheel1.setPower(targetFlywheelRPM / 6000);
+        flyWheel2.setPower(targetFlywheelRPM / 6000);
     }
 
 }
