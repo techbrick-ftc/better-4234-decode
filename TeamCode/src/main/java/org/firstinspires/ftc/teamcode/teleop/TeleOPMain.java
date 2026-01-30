@@ -193,7 +193,8 @@ public class TeleOPMain extends LinearOpMode {
             intake.setLiftPositionWithinRange(gamepad1.left_bumper ? 0 : 1, gamepad1.right_bumper ? 0 : 1);
 
             // Telemetry below this line -----------------------------------------------------------
-            telemetry.addData("RPM Measured", flywheel.flyWheel.getVelocity());
+            telemetry.addData("RPM Measured", flywheel.flyWheel1.getVelocity());
+            telemetry.addData("RPM Measured Fl2", flywheel.flyWheel2.getVelocity());
             telemetry.addData("Team", subData.isRedTeam() ? "RED. [Options] to change." : "BLUE. [Options] to change");
             telemetry.addLine();
             telemetry.addData("Slow Mode", slowMode ? "ON. [B] to change." : "OFF. [B] to change.");
