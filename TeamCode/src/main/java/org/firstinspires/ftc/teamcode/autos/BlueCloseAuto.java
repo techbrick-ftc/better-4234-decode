@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -130,15 +129,15 @@ public class BlueCloseAuto extends LinearOpMode {
         flywheel.setFlyWheelRPM(6000);
         sleep(3000);
 
-        intake.setLiftPositionWithinRange(1, 0);
+        intake.liftToPosition(1, 0);
         sleep(1500);
 
-        intake.setLiftPositionWithinRange(0,1);
+        intake.liftToPosition(0,1);
         sleep(1500);
 
         intake.setIntakePower(1);
 
-        intake.setLiftPositionWithinRange(1, 1);
+        intake.liftToPosition(1, 1);
         sleep(1500);
 
         driveToRelative(-200, 200, -200, 200, 0.3);

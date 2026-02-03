@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
-import com.qualcomm.robotcore.hardware.HardwareMap;
-
 import org.firstinspires.ftc.teamcode.SubSystems.SubDrive;
 import org.firstinspires.ftc.teamcode.SubSystems.SubFlywheel;
 import org.firstinspires.ftc.teamcode.SubSystems.SubIntake;
@@ -28,9 +26,9 @@ public class TeleOPMain extends LinearOpMode {
     final double RED_OUTTAKE_TARGET_PRIMITIVE  =  Math.PI * 0.7;
     final double BLUE_OUTTAKE_TARGET_PRIMITIVE = -Math.PI * 0.7;
 
-    final double FLYWHEEL_HIGH_RPM = 6000;
-    final double FLYWHEEL_MED_RPM  = 5000;
-    final double FLYWHEEL_LOW_RPM  = 4500;
+    final double FLYWHEEL_HIGH_RPM = 5850;
+    final double FLYWHEEL_MED_RPM  = 5500;
+    final double FLYWHEEL_LOW_RPM  = 5000;
     final double FLYWHEEL_IDLE_RPM = 0; // Should be left at 0 until end-of-match disable is finished.
 
     // May need to move to SubAprilTag, also need to check if correct
@@ -91,10 +89,18 @@ public class TeleOPMain extends LinearOpMode {
         if (isStopRequested()) return;
         while (opModeIsActive()) {
 
+
             xP = gamepad1.left_stick_x;
             yP = -gamepad1.left_stick_y;
             rP = -gamepad1.right_stick_x;
 
+            /*
+            // IN TESTING: More aggressive max values with more control at lower values using exponential scaling
+            xP = Math.max(Math.min(( gamepad1.left_stick_x  * Math.abs(gamepad1.left_stick_x))  * 1.4, 1), -1);
+            yP = Math.max(Math.min((-gamepad1.left_stick_y  * Math.abs(gamepad1.left_stick_y))  * 1.4, 1), -1);
+            rP = Math.max(Math.min((-gamepad1.right_stick_x * Math.abs(gamepad1.right_stick_x)), 1), -1);
+                    //Math.max(Math.min(-gamepad1.right_stick_x * Math.abs(gamepad1.right_stick_x)) * 1.2, 1), -1);
+            */
             if (gamepad1.bWasPressed()) {
                 slowMode = !slowMode;
                 drivePow = !slowMode ? DRIVE_DEFAULT_POWER : DRIVE_SLOW_POWER;
@@ -186,11 +192,11 @@ public class TeleOPMain extends LinearOpMode {
                 flywheel.setFlyWheelRPM(0);
                 intake.setIntakePower(0);
                 intake.setTransferPower(0);
-                intake.setLiftPositionWithinRange(0,0);
+                intake.liftToPosition(0,0);
                 subAprilTagDetection.stop();
             }
 
-            intake.setLiftPositionWithinRange(gamepad1.left_bumper ? 0 : 1, gamepad1.right_bumper ? 0 : 1);
+            intake.liftToPosition(gamepad1.left_bumper ? 0 : 1, gamepad1.right_bumper ? 0 : 1);
 
             // Telemetry below this line -----------------------------------------------------------
             telemetry.addData("RPM Measured", flywheel.flyWheel1.getVelocity());

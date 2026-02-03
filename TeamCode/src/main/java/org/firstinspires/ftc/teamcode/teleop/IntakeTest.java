@@ -26,7 +26,7 @@ public class IntakeTest extends LinearOpMode {
         while (opModeIsActive()) {
 
             intakeBootRow.setPower(gamepad1.left_trigger - gamepad1.right_trigger);
-            intake.setLiftPositionWithinRange(gamepad1.left_bumper ? 1:0, gamepad1.right_bumper ? 1:0);
+            intake.liftToPosition(gamepad1.left_bumper ? 1:0, gamepad1.right_bumper ? 1:0);
 
 
 
