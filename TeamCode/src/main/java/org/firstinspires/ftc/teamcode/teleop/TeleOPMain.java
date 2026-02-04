@@ -27,8 +27,8 @@ public class TeleOPMain extends LinearOpMode {
     final double BLUE_OUTTAKE_TARGET_PRIMITIVE = -Math.PI * 0.7;
 
     final double FLYWHEEL_HIGH_RPM = 5850;
-    final double FLYWHEEL_MED_RPM  = 5500;
-    final double FLYWHEEL_LOW_RPM  = 5000;
+    final double FLYWHEEL_MED_RPM  = 4000;
+    final double FLYWHEEL_LOW_RPM  = 3000;
     final double FLYWHEEL_IDLE_RPM = 0; // Should be left at 0 until end-of-match disable is finished.
 
     // May need to move to SubAprilTag, also need to check if correct
