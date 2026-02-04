@@ -156,12 +156,17 @@ public class TeleOPMain extends LinearOpMode {
                     drive.To(xP, yP, headingAngle * kP, drivePow, fieldCentricActive);
                 } else if (headingLockState == 2) {
 
-                    // Apriltags
-                    aprilTagRotation = subAprilTagDetection.getRotationCorrection(colorTagID);
-                    if(!Double.isNaN(aprilTagRotation)){
-                        drive.To(xP, yP, aprilTagRotation, drivePow, fieldCentricActive);
-                    } else {
+                    if (Math.abs(rP) > 0.5) {
                         drive.To(xP, yP, rP, drivePow, fieldCentricActive);
+                    } else {
+
+                        // Apriltags
+                        aprilTagRotation = subAprilTagDetection.getRotationCorrection(colorTagID);
+                        if (!Double.isNaN(aprilTagRotation)) {
+                            drive.To(xP, yP, aprilTagRotation, drivePow, fieldCentricActive);
+                        } else {
+                            drive.To(xP, yP, rP, drivePow, fieldCentricActive);
+                        }
                     }
                 }
 
