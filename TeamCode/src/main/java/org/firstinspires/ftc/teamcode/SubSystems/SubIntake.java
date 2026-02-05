@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.SubSystems;
 
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -8,14 +7,6 @@ import com.qualcomm.robotcore.hardware.CRServo;
 
 public class SubIntake {
 
-    // Define the min and max values of the lift servos to allow for easier position setting within the predefined range
-    private final double LEFT_LIFT_SERVO_MAX  = 0.6;
-    private final double LEFT_LIFT_SERVO_MIN  = 0.0;
-    private final double RIGHT_LIFT_SERVO_MAX = 1.0;
-    private final double RIGHT_LIFT_SERVO_MIN = 0.4;
-
-    private final double LEFT_LIFT_SERVO_RANGE  = Math.abs(LEFT_LIFT_SERVO_MAX  - LEFT_LIFT_SERVO_MIN );
-    private final double RIGHT_LIFT_SERVO_RANGE = Math.abs(RIGHT_LIFT_SERVO_MAX - RIGHT_LIFT_SERVO_MIN);
 
     // Motor and servo definitions
     CRServo    transferWheels;
@@ -30,12 +21,14 @@ public class SubIntake {
         spaghettiWheelsIntakeMotor.setDirection(DcMotorEx.Direction.FORWARD);
         spaghettiWheelsIntakeMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
-        transferWheels = hardwareMap.get(CRServo.class, "transfer");
-        transferWheels.setDirection(DcMotorEx.Direction.REVERSE);
+        // transferWheels = hardwareMap.get(CRServo.class, "transfer");
+        // transferWheels.setDirection(DcMotorEx.Direction.REVERSE)
 
         leftLiftServo =  hardwareMap.get(Servo.class, "leftLift" );
         rightLiftServo = hardwareMap.get(Servo.class, "rightLift");
         leftLiftServo.setDirection(Servo.Direction.REVERSE);
+        rightLiftServo.setDirection(Servo.Direction.FORWARD);
+
     }
 
     public void setIntakePower(double intakeRowPower) {
@@ -48,10 +41,21 @@ public class SubIntake {
         transferWheels.setPower(transferPow);
     }
 
-    public void setLiftPositionWithinRange(double leftServoRelativePosition, double rightServoRelativePosition) {
+    public void liftToPosition(double leftServoRelativePosition, double rightServoRelativePosition) {
 
         // Sets the servo to a relative position within the range of the servo: 0 = minimum, 1 = maximum
-        leftLiftServo .setPosition(LEFT_LIFT_SERVO_MIN  + leftServoRelativePosition  * LEFT_LIFT_SERVO_RANGE);
+        // Define the min and max values of the lift servos to allow for easier position setting within the predefined range
+        double LEFT_LIFT_SERVO_MAX = 0.6;
+        double LEFT_LIFT_SERVO_MIN = 0.4;
+        double RIGHT_LIFT_SERVO_MAX = 1.0;
+        double RIGHT_LIFT_SERVO_MIN = 0.4;
+
+        rightLiftServo.getPosition();
+
+        double LEFT_LIFT_SERVO_RANGE = LEFT_LIFT_SERVO_MAX - LEFT_LIFT_SERVO_MIN;
+        double RIGHT_LIFT_SERVO_RANGE = RIGHT_LIFT_SERVO_MAX - RIGHT_LIFT_SERVO_MIN;
+
+        leftLiftServo .setPosition(LEFT_LIFT_SERVO_MIN + leftServoRelativePosition  * LEFT_LIFT_SERVO_RANGE);
         rightLiftServo.setPosition(RIGHT_LIFT_SERVO_MIN + rightServoRelativePosition * RIGHT_LIFT_SERVO_RANGE);
     }
 
