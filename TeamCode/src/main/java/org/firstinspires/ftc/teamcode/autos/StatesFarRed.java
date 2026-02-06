@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.autos;
 
+import static android.os.SystemClock.sleep;
+
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
@@ -9,11 +11,17 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import com.pedropathing.util.Timer;
 
+import org.firstinspires.ftc.teamcode.SubSystems.SubFlywheel;
+import org.firstinspires.ftc.teamcode.SubSystems.SubData;
+import org.firstinspires.ftc.teamcode.SubSystems.SubIntake;
 
 @Autonomous(name = "StatesFarRed")
 public class StatesFarRed extends OpMode {
 
     private Follower follower;
+
+    SubFlywheel flywheel = null;
+    SubIntake intake = null;
 
     private Timer pathTimer, opModeTimer;
 
@@ -66,7 +74,19 @@ public class StatesFarRed extends OpMode {
                 break;
             case SHOOTPRELOADED:
                 if (!follower.isBusy() && pathTimer.getElapsedTime() > 5) {
-                    //TODO - flywheel logic
+                    flywheel.setFlyWheelRPM(6000);
+                    sleep(2000);
+                    intake.liftToPosition(0,1);
+                    sleep(1500);
+                    intake.liftToPosition(1,0);
+                    sleep(1500);
+                    intake.liftToPosition(0,0);
+                    sleep(1500);
+                    intake.setIntakePower(1);
+                    sleep(1500);
+                    intake.liftToPosition(1,1);
+                    sleep(1500);
+                    intake.liftToPosition(0,0); //todo: needed?
                     follower.followPath(driveToFirstRow, true);
                     telemetry.addLine("Done Path 1");
                 }
@@ -82,7 +102,18 @@ public class StatesFarRed extends OpMode {
                     telemetry.addLine("done third path");
                 }
             case FIRSTINTAKETOSHOOT:
-                if (!follower.isBusy()) {
+                if (!follower.isBusy() && pathTimer.getElapsedTime() > 15) {
+                    intake.setIntakePower(0);
+                    intake.liftToPosition(0,1);
+                    sleep(1500);
+                    intake.liftToPosition(1,0);
+                    sleep(1500);
+                    intake.liftToPosition(0,0);
+                    intake.setIntakePower(1);
+                    sleep(1500);
+                    intake.liftToPosition(1,1);
+                    sleep(1500);
+                    intake.liftToPosition(0,0);
                     telemetry.addLine("done auto");
                 }
 
